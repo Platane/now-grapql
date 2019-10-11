@@ -1,0 +1,38 @@
+{
+  "name": "jte",
+  "public": false,
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/handlers/options.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "src/handlers/graphql/index.ts",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api(/.*)",
+      "continue": true,
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS, GET, POST",
+        "Access-Control-Allow-Headers": "content-type, authorization"
+      }
+    },
+    {
+      "src": "/api/graphql",
+      "dest": "src/handlers/graphql/index.ts",
+      "methods": ["GET", "POST"]
+    },
+    {
+      "src": "/api(/.*)",
+      "dest": "src/handlers/options.ts",
+      "status": 200,
+      "methods": ["OPTIONS"]
+    }
+  ]
+}

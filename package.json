@@ -1,0 +1,35 @@
+{
+  "name": "now-graphql",
+  "version": "0.0.1",
+  "private": true,
+  "sideEffects": false,
+  "engines": {
+    "node": "10"
+  },
+  "dependencies": {
+    "@now/node": "1.0.1",
+    "dataloader": "1.4.0",
+    "graphql": "14.5.8",
+    "graphql-tools": "4.0.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.6.4",
+    "@babel/core": "7.6.4",
+    "@babel/node": "7.6.3",
+    "@babel/plugin-transform-modules-commonjs": "7.6.0",
+    "@babel/preset-typescript": "7.6.0",
+    "@graphql-codegen/cli": "1.8.1",
+    "@graphql-codegen/typescript": "1.8.1",
+    "@graphql-codegen/typescript-operations": "1.8.1",
+    "@graphql-codegen/typescript-resolvers": "1.8.1",
+    "now": "16.3.1",
+    "prettier": "1.18.2",
+    "typescript": "3.6.4"
+  },
+  "scripts": {
+    "type": "tsc --noEmit",
+    "lint": "yarn prettier -c './src/js/*' './src/css/*' './src/*.html' '!./.build/**'",
+    "prepareSchema": "rm -f src/schema/types.ts src/schema/document.ts ; graphql-codegen --config codegen.yml ;  echo 'export default `' >> src/schema/document.ts ; cat src/schema/document.gql >> src/schema/document.ts ; echo '`' >> src/schema/document.ts",
+    "dev": "now dev"
+  }
+}
